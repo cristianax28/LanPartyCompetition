@@ -45,6 +45,9 @@ int main(int argc, char *argv[])
     }
 
     // 2
+    // calculeaza n maxim putere a lui 2
+
+    
     if (cerinte[1] == 1)
     {
         if ((rezultate = fopen(argv[3], "wt")) == NULL)
@@ -52,12 +55,15 @@ int main(int argc, char *argv[])
             printf("eroare la deschiderea fisierului r");
             exit(1);
         }
-        int puncte_echipa, nr_jucatori, n;
+        int puncte_echipa, nr_jucatori;
         float min;
-        // calculeaza n maxim putere a lui 2
-        n = 1;
-        while (n * 2 < nr_echipe)
-            n = n * 2;
+        int n = 1;
+    //int runde=0;
+    while (n * 2 < nr_echipe)
+    {
+        n = n * 2;
+        //runde++;
+    }
         // calculeaza punctajul fiecarei echipa
         ECHIPA *head2 = (ECHIPA *)malloc(sizeof(ECHIPA));
         head2 = head;
@@ -97,130 +103,132 @@ int main(int argc, char *argv[])
     }
     fclose(rezultate);
     fclose(c);
+}
 
-    // 3
-    if (cerinte[2] == 1)
+/*3
+
+if (cerinte[2] == 1)
+{
+    int i, nr_runde= 1;
+    if ((rezultate = fopen(argv[3], "wt")) == NULL)
     {
-        int i, rounds = 1;
-        if ((rezultate = fopen(argv[3], "wt")) == NULL)
-        {
-            printf("eroare la deschiderea fisierului r");
-            exit(1);
-        }
-        ECHIPA *teamcopy = (ECHIPA *)malloc(sizeof(ECHIPA));
-        teamcopy = head;
-        Queue *q = (Queue *)malloc(sizeof(Queue));
-        q = createqueue();
-        for (i = 0; i < nr_echipe && teamcopy != NULL; i++)
-        {
-            enQueue(&q, &teamcopy);
-            teamcopy = teamcopy->next;
-        }
-        // return 0;
-        fclose(rezultate);
-
-        while (nr_echipe != 0 && teamcopy != NULL)
-        {
-            STACK *winners =NULL;
-            STACK *losers = NULL;
-            ELEM *team1 = (ELEM *)malloc(sizeof(ELEM));
-            ELEM *team2 = (ELEM *)malloc(sizeof(ELEM));
-            /*ECHIPA *headcopy3 = (ECHIPA *)malloc(sizeof(ECHIPA));
-            headcopy3 = teamcopy;*/
-            //fprintf("--- ROUND NO: %d", rounds);
-            while (teamcopy != NULL)
+        printf("eroare la deschiderea fisierului r");
+        exit(1);
+    }
+    ECHIPA *teamcopy = (ECHIPA *)malloc(sizeof(ECHIPA));
+    teamcopy = head;
+    Queue *q = (Queue *)malloc(sizeof(Queue));
+    q = createqueue();
+    for (i = 0; i < nr_echipe && teamcopy != NULL; i++)
+    {
+        enQueue_coada1(q, teamcopy);
+        teamcopy = teamcopy->next;
+    }
+    // return 0;
+    fclose(rezultate);
+    STACK *winners = (STACK *)malloc(sizeof(STACK));
+    winners = NULL;
+    STACK *losers = (STACK *)malloc(sizeof(STACK));
+    losers = NULL;
+    while (nr_runde<=runde)
+    {
+       //ELEM *team1 = (ELEM*)malloc(sizeof(ELEM));
+        //ELEM*team2 = (ELEM*)malloc(sizeof(ELEM));
+        /*ECHIPA *headcopy3 = (ECHIPA *)malloc(sizeof(ECHIPA));
+        headcopy3 = teamcopy;
+        fprintf(rezultate,"--- ROUND NO: %d",nr_runde);
+        while (q->front!= NULL && q->front->next!=NULL)
+        { fprintf(rezultate,"%s",q->front->name);
+        for(int i=0;i<nr_echipe;i++)
+        fprintf(rezultate,"%c",' ');
+        fprintf(rezultate,"%c",'-');
+            if (q->front->punctaj > q->front->next->punctaj)
             {
-                if (team1->punctaj > team2->punctaj)
-                {
-                    team1->punctaj = team1->punctaj + 1;
-                    push(&winners, team1);
-                    push(&losers, team2);
-                }
-                else
-                {
-                    team2->punctaj = team2->punctaj + 1;
-                    push(&winners, team2);
-                    push(&losers, team1);
-                }
-                rounds++;
-                nr_echipe = nr_echipe / 2;
-                if (team1->punctaj == team2->punctaj)
-                {
-                    team1->punctaj = team1->punctaj + 1;
-                    push(&winners, team1);
-                    push(&losers, team2);
-                }
+                q->front->punctaj = q->front->next->punctaj + 1;
+                push(&winners, q);
+                push(&losers, q);
+            }
+            else
+            {
+                q->front->next->punctaj = q->front->next->punctaj + 1;
+                push(&winners, q);
+                push(&losers, q);
+            }
+            if (q->front->punctaj == q->front->next->punctaj)
+            {
+                q->front->punctaj = q->front->punctaj + 1;
+                push(&winners, q);
+                push(&losers, q);
+            }
 
-                if (isQueueEmpty(&q))
+            if (isQueueEmpty(q))
+            {
+                while (!isStackEmpty(winners))
                 {
-                    while (!isStackEmpty(&winners))
-                    {
-                        pop(&winners);
-                        enQueue(&q, winners);
-                    }
-                    while (!isStackEmpty(&losers))
-                    {
-                        deleteStack(&losers);
-                    }
+                    pop(&winners);
+                    enQueue(q, winners);
+                }
+                while (!isStackEmpty(losers))
+                {
+                    deleteStack(&losers);
                 }
             }
-            ELEM *top_teams = (ELEM *)malloc(8 * sizeof(ELEM));
-            for (i = 0; i < 8; i++)
-                top_teams[i] = pop(&winners);
         }
+        /*ELEM *top_teams = (ELEM *)malloc(8 * sizeof(ELEM));
+        for (i = 0; i < 8; i++)
+            top_teams[i] = pop(&winners);*/
+           // nr_runde++;
+    
 
-        /*if (rounds == 1)
+    /*if (rounds == 1)
+     {
+         fprintf(rezultate, "%s    -", headcopy3->next->nume_echipa);
+         // ELEM *team1=(ELEM*)malloc(sizeof(team1));
+         if (headcopy3->puncte_echipa < headcopy3->next->puncte_echipa)
          {
-             fprintf(rezultate, "%s    -", headcopy3->next->nume_echipa);
-             // ELEM *team1=(ELEM*)malloc(sizeof(team1));
-             if (headcopy3->puncte_echipa < headcopy3->next->puncte_echipa)
-             {
-                 push(stackLooser, headcopy3->puncte_echipa->nume_echipa);
-                 push(stackWinner, headcopy3->next->puncte_echipa->nume_echipa);
-                 headcopy3->puncte_echipa = headcopy3->puncte_echipa + 1;
-             }
-             else
-             {
-                 push(stackWinner, headcopy3->puncte_echipa->nume_echipa);
-                 headcopy3->puncte_echipa = headcopy3->puncte_echipa + 1;
-                 push(stackLooser, headcopy3->next->puncte_echipa->nume_echipa);
-             }
-             headcopy3 = headcopy3->next->next;
-             fprintf(rezultate, "     -%s\n", headcopy3->next->nume_echipa);
-             headcopy3 = headcopy3->next->next;
-             /*if(headcopy3->puncte_echipa==headcopy3->next->puncte_echipa)
-             {
-                 push(stackWinner, headcopy3->puncte_echipa->nume_echipa);
-                 headcopy3->puncte_echipa = headcopy3->puncte_echipa + 1;
-                 push(stackLooser, headcopy3->next->puncte_echipa->nume_echipa);
-             }
-             rounds++;
-             nr_echipe = nr_echipe / 2;
+             push(stackLooser, headcopy3->puncte_echipa->nume_echipa);
+             push(stackWinner, headcopy3->next->puncte_echipa->nume_echipa);
+             headcopy3->puncte_echipa = headcopy3->puncte_echipa + 1;
          }
          else
          {
-             while (stackLooser != NULL)
-             {
-                 ECHIPA *top = (ECHIPA *)malloc(sizeof(ECHIPA));
+             push(stackWinner, headcopy3->puncte_echipa->nume_echipa);
+             headcopy3->puncte_echipa = headcopy3->puncte_echipa + 1;
+             push(stackLooser, headcopy3->next->puncte_echipa->nume_echipa);
+         }
+         headcopy3 = headcopy3->next->next;
+         fprintf(rezultate, "     -%s\n", headcopy3->next->nume_echipa);
+         headcopy3 = headcopy3->next->next;
+         /*if(headcopy3->puncte_echipa==headcopy3->next->puncte_echipa)
+         {
+             push(stackWinner, headcopy3->puncte_echipa->nume_echipa);
+             headcopy3->puncte_echipa = headcopy3->puncte_echipa + 1;
+             push(stackLooser, headcopy3->next->puncte_echipa->nume_echipa);
+         }
+         rounds++;
+         nr_echipe = nr_echipe / 2;
+     }
+     else
+     {
+         while (stackLooser != NULL)
+         {
+             ECHIPA *top = (ECHIPA *)malloc(sizeof(ECHIPA));
 
-                 deleteStack(&top);
-             }
-             ECHIPA *cpy = (ECHIPA *)malloc(sizeof(ECHIPA));
-             cpy = head;
-             while (stackWinner != NULL && cpy != NULL)
-             {
-                 for (int i = 0; i < cpy->nr_echipe; i++)
-                     fprintf(rezultate, "%s    ", cpy->nume_echipa);
-                 fprintf(rezultate, "     -%s", cpy->nume_echipa);
+             deleteStack(&top);
+         }
+         ECHIPA *cpy = (ECHIPA *)malloc(sizeof(ECHIPA));
+         cpy = head;
+         while (stackWinner != NULL && cpy != NULL)
+         {
+             for (int i = 0; i < cpy->nr_echipe; i++)
+                 fprintf(rezultate, "%s    ", cpy->nume_echipa);
+             fprintf(rezultate, "     -%s", cpy->nume_echipa);
 
-                 cpy = cpy->next;
-                 pop(cpy);
-                 enQueue(&q, cpy);
-                 rounds++;
-                 nr_echipe=nr_echipe/2;
-             }
-             if()
-         }*/
-    }
-}
-  
+             cpy = cpy->next;
+             pop(cpy);
+             enQueue(&q, cpy);
+             rounds++;
+             nr_echipe=nr_echipe/2;
+         }
+         if()
+     }*/

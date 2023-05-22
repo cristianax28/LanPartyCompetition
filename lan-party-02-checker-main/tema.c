@@ -64,6 +64,7 @@ void delete(ECHIPA **head, float min)
         }
     }
 }
+/*
 Queue *createqueue()
 {
     Queue *q;
@@ -74,11 +75,12 @@ Queue *createqueue()
     q->rear = NULL;
     return q;
 }
-void enQueue(Queue *q, ECHIPA *echipa)
+void enQueue_coada1(Queue *q, ECHIPA *echipa)
 {
     ELEM *newNode = (ELEM *)malloc(sizeof(ELEM));
     // atribuie in coada numele echipei si punctajul de echipa
-    newNode->name = echipa->nume_echipa;
+    newNode->name = (char *)malloc((strlen(echipa->nume_echipa) + 1) * sizeof(char));
+    strcpy(newNode->name, echipa->nume_echipa);
     newNode->punctaj = echipa->puncte_echipa;
     newNode->next = NULL;
     if (q->rear == NULL)
@@ -91,32 +93,51 @@ void enQueue(Queue *q, ECHIPA *echipa)
     if (q->front == NULL)
         q->front = q->rear;
 }
-void push(ELEM **top, ECHIPA *stackteam)
+void enQueue(Queue *q, STACK *echipa)
 {
     ELEM *newNode = (ELEM *)malloc(sizeof(ELEM));
-    newnode->name = stackteam->nume_echipa;
-    newNode->punctaj = stackteam->puncte_echipa;
+    // atribuie in coada numele echipei si punctajul de echipa
+    newNode->name = (char *)malloc((strlen(echipa->stiva_name) + 1) * sizeof(char));
+    strcpy(newNode->name, echipa->stiva_name);
+    newNode->punctaj = echipa->stiva_punctaj;
+    newNode->next = NULL;
+    if (q->rear == NULL)
+        q->rear = newNode;
+    else
+    {
+        (q->rear)->next = newNode;
+        (q->rear) = newNode;
+    }
+    if (q->front == NULL)
+        q->front = q->rear;
+}
+void push(STACK **top, Queue *stackteam)
+{
+    STACK *newNode = (STACK *)malloc(sizeof(STACK));
+    newNode->stiva_name= (char *)malloc((strlen(stackteam->front->name) + 1) * sizeof(char));
+    strcpy(newNode->stiva_name, stackteam->front->name);
+    newNode->stiva_punctaj = stackteam->front->punctaj;
     newNode->next = *top;
     *top = newNode;
 }
-int isStackEmpty(ELEM *top)
-{
-    return top = NULL;
+int isStackEmpty(STACK *top)
+{ 
+    return top==NULL;
 }
-ELEM pop(ELEM **top)
+void pop(STACK **top)
 {
-    if (isEmpty(*top))
-        return;
-    ELEM *temp = (*top);
-    char name = temp->name;
-    float punctaj = temp->punctaj;
+    // if (isEmpty(*top))
+    // return;
+    // ELEM *temp = (*top);
+    // char name = temp->name;
+    // float punctaj = temp->punctaj;
     *top = (*top)->next;
-    free(temp);
+    // free(temp);
 }
-void deleteStack(ELEM **top)
+void deleteStack(STACK **top)
 {
-    ELEM *temp;
-    while ((*top) != NULL)
+    STACK *temp;
+    while (!isStackEmpty(*top))
         temp = *top;
     *top = (*top)->next;
     free(temp);
@@ -124,4 +145,4 @@ void deleteStack(ELEM **top)
 int isQueueEmpty(Queue *q)
 {
     return (q->front == NULL);
-}
+}*/
