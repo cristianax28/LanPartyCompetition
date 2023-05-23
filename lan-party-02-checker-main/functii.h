@@ -18,50 +18,39 @@ struct echipa
     struct echipa *next;
 };
 typedef struct echipa ECHIPA;
-// coada
-struct Q
-{
-    ECHIPA *front; // adresa primei echipe din coada
-    ECHIPA *rear;  // adresa ultimei echipe din coada
-};
-typedef struct Q Queue;
+void addAtBeginning(ECHIPA **head, FILE *fisier);
+void delete(ECHIPA **head, float min);
+//coada
+
 struct element
 {
     char *name;
     float punctaj;
     struct element *next;
 };
+
 typedef struct element ELEM;
+struct Q
+{
+    ELEM *front; // adresa primei echipe din coada
+    ELEM *rear;  // adresa ultimei echipe din coada
+};
+typedef struct Q Queue;
 // stiva
 struct stiva
 {
-    char *name;
-    float punctaj;
+    char *stiva_name;
+    float stiva_punctaj;
     struct stiva *next;
 };
 typedef struct stiva STACK;
-/*stiva pentru castigatori
-struct winners
-{
-    char *name;
-    float punctaj;
-    struct winners *next;
-};
-typedef struct winners stackWinner;
-//stiva pentru invinsi;
-struct loosers
-{
-    char *name;
-    float punctaj;
-    struct loosers *next;
-};
-typedef struct loosers stackLooser;*/
+typedef struct loosers stackLooser;
 void addAtBeginning(ECHIPA **head, FILE *fisier);
 void delete(ECHIPA **head, float min);
-void enQueue(Queue *q, ECHIPA *echipa);
+void enQueue(Queue *q, STACK *echipa);
 Queue *createqueue();
-void push(ELEM **top, ECHIPA *stackteam);
-int isStackEmpty(ELEM *top);
+void push(STACK **top, Queue *stackteam);
+int isStackEmpty(STACK *top);
 int isQueueEmpty(Queue *q);
-ELEM pop(ELEM **top);
-void deleteStack(ELEM **top);
+void pop(STACK **top);
+void enQueue_coada1(Queue *q, ECHIPA *echipa);

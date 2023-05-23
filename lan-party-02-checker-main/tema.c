@@ -64,7 +64,7 @@ void delete(ECHIPA **head, float min)
         }
     }
 }
-/*
+
 Queue *createqueue()
 {
     Queue *q;
@@ -120,6 +120,7 @@ void push(STACK **top, Queue *stackteam)
     newNode->next = *top;
     *top = newNode;
 }
+
 int isStackEmpty(STACK *top)
 { 
     return top==NULL;
@@ -134,15 +135,8 @@ void pop(STACK **top)
     *top = (*top)->next;
     // free(temp);
 }
-void deleteStack(STACK **top)
-{
-    STACK *temp;
-    while (!isStackEmpty(*top))
-        temp = *top;
-    *top = (*top)->next;
-    free(temp);
-}
+
 int isQueueEmpty(Queue *q)
 {
     return (q->front == NULL);
-}*/
+}

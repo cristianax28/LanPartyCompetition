@@ -1,0 +1,33 @@
+//cerinta 1:
+In fisierul tema.c am creat o functie ce implementeaza adaugarea la inceputul unei liste informatii din fisierul d.in. 
+Am creat o structura de tip ECHIPA care sa contina informatii din structura Player data(informatiile despre fiecare jucator in parte) 
+si informatii despre fiecare echipa asa cum apare in fisier(numele echipei, numarul de jucatori si punctele de echipa).
+In functia de adaugare am citit pe rand elementele structurii ECHIPA si le am bagat in lista, iar apoi pentru fiecare jucator in parte 
+am citit informatii referitoare la acestia din structura player data si le am introdus in lista. 
+In fisierul main.c am alocat memorie pentru fiecare nod din lista ce reprezinta cate o echipa. 
+Am deschis pe rand cele 3 fisiere c.in si d.in(fisier) cu drepturi de citire iar fisierul de rezultate cu drepturi de scriere.
+Cu un for de la 1 la numarul de elemente din fisierul c.in(5) am citit fiecare element din fisier. 
+Pentru fiecare echipa citita din fisier, am apelat functia de adaugare la inceputul unei liste, astfel se creeaza lista.
+Apoi am folosit o copie pentru a nu pierde valoarea initiala a nodului ,am parcurs toata lista si am afisat echipele in fisierul de rezultate.
+//cerinta 2:
+Pentru cerinta 2 am implementat o functie de stergere. In fisierul main am calculat numarul n ca fiind o putere a lui 2. Apoi am folosit
+o copie a nodului pentru a nu i pierde valoarea cand parcurg lista si am aflat punctajul fiecarei echipe adunand la fiecare echipa punctele fiecarui jucator.
+Cat timp numarul de echipe este mai mare decat n- ul aflat anterior si nu am ajuns la finalul listei am calculat minimul dintre punctajele echipelor 
+si cum am gasit o echipa cu punctaj minim o sterg iar numarul de echipe scade.
+La final folosesc o alta copie si afisez echipele ramase in fisier.
+//cerinta3:
+Pentru cerinta 3, in fisierul tema.c am implementat functiile necesare pentru crearea unei cozi, stergerea stivei, functie de verificare daca stiva respectiv coada 
+este goala, functia pop de extragere a unui element din stiva, functia push de introducere a unui element din stiva si functia enQueue_coada1 pentru introducerea unui element
+din lista in coada si o alta functie asemanatoare enQueue pentru a introduce un element din stiva in coada.
+Numarul total de runde l am calculat in while ul de la cerinta 2(runde),iar variabila nr_runde semnifica numarul curent de runde efectuate de echipe.
+In fisierul main am parcurs stiva cu ajutorul unei copii si am folosit functia de adaugare a unui element din lista in coada pentru a pune in coada meciurile dintre echipe.
+Apoi am creat doua stive, una pentru echipele castigatoare si alta pentru cele pierzatoare. 
+In while (cat timp numarul curent de runde este mai mic sau egal decat numarul total de runde, adica inca se mai efectueaza meciuri)
+am comparat punctajele echipelor doua cate doua iar echipa cu punctajul mai mare se pune in stiva de castigatori si cea cu punctaj mai mic in stiva de pierzatori.
+Daca echipele au acelasi punctaj, in stiva de castigatori se pune prima echipa si in cea de pierzatori urmatoarea.
+Cat timp stiva de pierzatori este plina,se scot echipele din aceasta. Din stiva de castigatori se pun echipele din nou in coada si se vor forma alte runde, la final, numarul de runde creste.
+
+
+
+
+
